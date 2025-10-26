@@ -1,0 +1,40 @@
+body {
+      background-color: #e9f0ff;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    h1 {
+      text-align: center;
+      font-weight: 700;
+      margin-top: 30px;
+      color: #1e2a5a;
+    }
+
+    .card {
+      border: none;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .progress {
+      height: 8px;
+      border-radius: 10px;
+    }
+
+    .icono {
+      font-size: 30px;
+      padding: 10px;
+      border-radius: 12px;
+      color: white;
+      margin-bottom: 10px;
+    }
+
+    .icono-cpu { background-color: #6c63ff; }
+    .icono-ram { background-color: #3fc97d; }
+    .icono-disco { background-color: #ffb84d; }
+    .icono-red { background-color: #4aa9ff; }
