@@ -9,6 +9,17 @@ socket.on('disconnect', () => {
 });
 
 socket.on('datosSistema', (datos) => {
+  // Sistema Operativo
+document.getElementById('sistema').innerHTML = `
+  <h3>Sistema</h3>
+  <span>Plataforma:</span> ${datos.sistema.plataforma} <br>
+  <span>Distribución:</span> ${datos.sistema.distro} <br>
+  <span>Versión:</span> ${datos.sistema.version} <br>
+  <span>Arquitectura:</span> ${datos.sistema.arquitectura} <br>
+  <span>Hostname:</span> ${datos.sistema.hostname}
+`;
+
+
   // CPU
     const usoCPU = parseFloat(datos.cpu.temperatura || datos.cpu.porcentaje || 0);
   document.getElementById('cpu').innerHTML = `
@@ -67,6 +78,33 @@ document.getElementById('memoria').innerHTML = `
         </div>
     `).join('');
     document.getElementById('red').innerHTML = `<h3>Red</h3>${redHtml}`;
+
+    // Procesos
+const procesosHtml = datos.procesos.map(p => `
+  <tr>
+    <td>${p.nombre}</td>
+    <td>${p.pid}</td>
+    <td>${p.cpu}</td>
+    <td>${p.memoria}</td>
+  </tr>
+`).join('');
+
+document.getElementById('procesos').innerHTML = `
+  <h3>Top 5 Procesos</h3>
+  <table class="table table-sm table-striped">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>PID</th>
+        <th>CPU</th>
+        <th>Memoria</th>
+      </tr>
+    </thead>
+    <tbody>${procesosHtml}</tbody>
+  </table>
+`;
+
+
 
 
 });
