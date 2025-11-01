@@ -1,4 +1,4 @@
-const socket = io('http://192.168.1.4:3000');
+const socket = io('http://192.168.1.2:3000');
 
 socket.on('connect', () => {
   console.log('🟢 Conectado al servidor de monitoreo');
@@ -11,7 +11,6 @@ socket.on('disconnect', () => {
 socket.on('datosSistema', (datos) => {
   // Sistema Operativo
 document.getElementById('sistema').innerHTML = `
-  <h3>Sistema</h3>
   <span>Plataforma:</span> ${datos.sistema.plataforma} <br>
   <span>Distribución:</span> ${datos.sistema.distro} <br>
   <span>Versión:</span> ${datos.sistema.version} <br>
@@ -19,11 +18,15 @@ document.getElementById('sistema').innerHTML = `
   <span>Hostname:</span> ${datos.sistema.hostname}
 `;
 
+// Uptime
+document.getElementById('uptime').innerHTML = `
+  <span>Tiempo encendido:</span> ${datos.sistema.uptime}
+`;
+
 
   // CPU
     const usoCPU = parseFloat(datos.cpu.temperatura || datos.cpu.porcentaje || 0);
   document.getElementById('cpu').innerHTML = `
-  <h3>CPU</h3>
   <span>Fabricante:</span> ${datos.cpu.fabricante} <br>
   <span>Modelo:</span> ${datos.cpu.modelo} <br>
   <span>Núcleos:</span> ${datos.cpu.nucleos} <br>
@@ -37,7 +40,6 @@ document.getElementById('sistema').innerHTML = `
 
    // Memoria
 document.getElementById('memoria').innerHTML = `
- <h3>Memoria</h3>
  <span>Total:</span> ${datos.memoria.total} <br>
  <span>Libre:</span> ${datos.memoria.libre} <br>
  <span>Usado:</span> ${datos.memoria.usado}
@@ -45,7 +47,7 @@ document.getElementById('memoria').innerHTML = `
 
 
  // Discos
-    let discosHtml = `<h3>Discos</h3>`;
+    let discosHtml = ``;
     if (datos.particiones.sda1) {
         discosHtml += `
             <strong>Raíz:</strong><br>
@@ -77,7 +79,7 @@ document.getElementById('memoria').innerHTML = `
             <span>Enviado:</span> ${iface.enviadoMB} MB
         </div>
     `).join('');
-    document.getElementById('red').innerHTML = `<h3>Red</h3>${redHtml}`;
+    document.getElementById('red').innerHTML = `${redHtml}`;
 
     // Procesos
 const procesosHtml = datos.procesos.map(p => `
@@ -90,7 +92,6 @@ const procesosHtml = datos.procesos.map(p => `
 `).join('');
 
 document.getElementById('procesos').innerHTML = `
-  <h3>Top 5 Procesos</h3>
   <table class="table table-sm table-striped">
     <thead>
       <tr>
@@ -103,6 +104,35 @@ document.getElementById('procesos').innerHTML = `
     <tbody>${procesosHtml}</tbody>
   </table>
 `;
+
+
+// Usuarios conectados
+if (datos.usuarios && datos.usuarios.length > 0) {
+  const usuariosHtml = datos.usuarios.map(u => `
+    <tr>
+      <td>${u.usuario}</td>
+      <td>${u.terminal}</td>
+      <td>${u.host}</td>
+      <td>${u.inicio}</td>
+    </tr>
+  `).join('');
+
+  document.getElementById('usuarios').innerHTML = `
+    <table class="table table-sm table-striped">
+      <thead>
+        <tr>
+          <th>Usuario</th>
+          <th>Terminal</th>
+          <th>Host</th>
+          <th>Inicio</th>
+        </tr>
+      </thead>
+      <tbody>${usuariosHtml}</tbody>
+    </table>
+  `;
+} else {
+  document.getElementById('usuarios').innerHTML = '<p>No hay usuarios conectados</p>';
+}
 
 
 
