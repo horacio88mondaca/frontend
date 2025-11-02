@@ -58,17 +58,11 @@ function conectar() {
 
 
       // CPU
-      const usoCPU = parseFloat(datos.cpu.temperatura || datos.cpu.porcentaje || 0);
       document.getElementById('cpu').innerHTML = `
         <span>Fabricante:</span> ${datos.cpu.fabricante} <br>
         <span>Modelo:</span> ${datos.cpu.modelo} <br>
         <span>Núcleos:</span> ${datos.cpu.nucleos} <br>
         <span>Temperatura:</span> ${datos.cpu.temperatura}
-        <p><strong>Uso:</strong> ${usoCPU}%</p>
-        <div class="progress mb-2">
-          <div class="progress-bar bg-primary progress-bar-striped progress-bar-animated"
-          style="width:${usoCPU}%; transition: width 0.5s ease;"></div>
-        </div>
       `
 
       // Memoria

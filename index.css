@@ -1,40 +1,61 @@
 body {
-      background-color: #e9f0ff;
-      font-family: 'Segoe UI', sans-serif;
-    }
+  background-color: #e9f0ff;
+  font-family: Arial, sans-serif;
+}
 
-    h1 {
-      text-align: center;
-      font-weight: 700;
-      margin-top: 30px;
-      color: #1e2a5a;
-    }
+h1 {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+    
 
-    .card {
-      border: none;
-      border-radius: 20px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      transition: all 0.3s ease;
-    }
+h5 {
+  text-align: center;
+}
 
-    .card:hover {
-      transform: translateY(-5px);
-    }
+#contenedorip {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+   
+button {
+  border-radius: 10px !important;
+}
 
-    .progress {
-      height: 8px;
-      border-radius: 10px;
-    }
+input{
+  border-radius: 10px !important;
+}
 
-    .icono {
-      font-size: 30px;
-      padding: 10px;
-      border-radius: 12px;
-      color: white;
-      margin-bottom: 10px;
-    }
+.card {
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
 
-    .icono-cpu { background-color: #6c63ff; }
-    .icono-ram { background-color: #3fc97d; }
-    .icono-disco { background-color: #ffb84d; }
-    .icono-red { background-color: #4aa9ff; }
+.card:hover {
+  transform: translateY(-10px);
+  background-color: #a1b5d8;
+}
+
+
+.icono {
+  font-size: 20px;
+  padding: 5px;
+  border-radius: 12px;
+  color: white;
+  margin-bottom: 10px;
+  width: 40px;
+  text-align: center;
+}
+
+.icono-cpu { background-color: #042b9677; }
+.icono-ram { background-color: #34a56794; }
+.icono-disco { background-color: #5f5d5d91; }
+.icono-red { background-color: #3b81c298; }
+    
+.icono-so { background-color: #7978788a; }
+.icono-uptime { background-color: #b96a0386; }
+.icono-procesos { background-color: #cccf1380; }
+.icono-usuarios { background-color: #0058ca85; }
