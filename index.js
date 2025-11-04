@@ -7,38 +7,44 @@ conectarBtn.disabled = false;
 desconectarBtn.disabled = true;
 
 
-function conectar() {
-  const inputId = document.getElementById("inputIP").value;
+async function conectar() {
+  const inputId = document.getElementById("inputIP").value; 
+  const usuario = document.getElementById("usuario").value;
+  const password = document.getElementById("password").value;
+
   const ipv4 = /^(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)){3}$/;
  
 
   if (ipv4.test(inputId)) {
-    socket = io(`http://${inputId}:3000`, { reconnection: false });  
+
+    try {
+      //Obtener token JWT
+      const resp = await fetch(`http://${inputId}:3000/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ usuario, password })
+      });
+      if (!resp.ok) throw new Error('Error de login');
+      const { token } = await resp.json();
+
+      //Conectar usando el token
+      socket = io(`http://${inputId}:3000`, {
+        auth: { token }, // el token se envía aquí
+        reconnection: false
+      });
+
     socket.on('connect', () => {
       conectarBtn.disabled = true;
       desconectarBtn.disabled = false;
       console.log('🟢 Conectado al servidor de monitoreo');
     });
 
-      socket.on('connect_error', (err) => {
-      console.error('❌ Error de conexión:', err.message);
-      alert(`No se pudo conectar a ${inputId}:3000.\nVerifica que el servidor esté activo.`);
-      
-      //cerrar socket fallido y restaurar botones
-      socket.disconnect();
-      socket = null;
-      conectarBtn.disabled = false;
-      desconectarBtn.disabled = true;
-    });
-
-
-
+ 
     socket.on('disconnect', () => { 
       conectarBtn.disabled = false;
       desconectarBtn.disabled = true;
       console.log('🔴 Desconectado del servidor'); 
     });
-
 
 
     socket.on('datosSistema', (datos) => {
@@ -165,6 +171,10 @@ function conectar() {
     });
 
 
+      } catch (err) {
+      console.error('Error al autenticar o conectar:', err.message);
+      alert('Error de autenticación o conexión');
+    }
 
   }
   else {

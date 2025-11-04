@@ -3,7 +3,7 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>monitor sistema</title>
+    <title>Monitor sistema</title>
     <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
   
@@ -23,7 +23,9 @@
   <div id="contenedorip" class="row justify-content-center">
     <div class="col-auto">
       <div class="input-group d-grid gap-2 d-md-flex justify-content-md-center">
-        <input type="text" style="width: auto;" class="form-control" id="inputIP" placeholder="Ingresa la IP del servidor">
+        <input type="text" class="form-control" id="inputIP" placeholder="Ingresa la IP del servidor">
+        <input type="text" class="form-control" id="usuario" placeholder="Usuario">
+        <input type="password" class="form-control" id="password" placeholder="Contraseña"> 
         <button id="conectarBtn" type="button" class="btn btn-primary btn-sm">Conectar</button>
         <button id="desconectarBtn" type="button" class="btn btn-danger btn-sm">Desconectar</button>
       </div>

@@ -25,6 +25,7 @@ button {
 
 input{
   border-radius: 10px !important;
+  width: auto !important;
 }
 
 .card {
